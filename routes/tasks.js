@@ -44,4 +44,33 @@ router.delete("/task/:id",function(req, res){
         res.json(task)
     })
 })
+
+//Update Task //
+router.put("/task/:id", function(req, res){
+    var task = req.body
+    var updTask = {}
+
+    if(task.title){
+        updTask.title = task.title
+    }
+
+    if(!updTask){
+        res,status(400)
+        res.json({
+            error:"Bad Data"
+        })
+    }else{
+        db.tasks.update(
+            {_id:mongojs.ObjectID(req.params.id)},
+            updTask,
+            {},
+            function(err, task){
+                if(err){
+                    res.send(err)
+                }
+                res.json(task)
+            }
+        )
+    }
+})
 module.exports = router;
