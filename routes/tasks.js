@@ -35,4 +35,13 @@ router.post("/task", function(req, res, next){
     }
 })
 
+// Delete Task //
+router.delete("/task/:id",function(req, res){
+    db.tasks.remove({_id:mongojs.ObjectId(req.params.id)},function(err,task){
+        if(err){
+            res.send(err)
+        }
+        res.json(task)
+    })
+})
 module.exports = router;
