@@ -7,9 +7,9 @@ var db = mongojs(
 )
 
 // Get All Tasks //
-router.get("/tasks", function(req, res, next){
-    db.tasks.find(function(err, tasks){
-        if(err){
+router.get("/tasks", function (req, res, next) {
+    db.tasks.find(function (err, tasks) {
+        if (err) {
             res.send(err)
         }
         res.json(tasks)
@@ -17,17 +17,17 @@ router.get("/tasks", function(req, res, next){
 })
 
 // Save Tasks //
-router.post("/task", function(req, res, next){
+router.post("/task", function (req, res, next) {
     var task = req.body
     console.log(task)
-    if(!task.title){
+    if (!task.title) {
         res.status(400)
         res.json({
-            error:"Bad Data"
+            error: "Bad Data"
         })
-    }else{
-        db.tasks.save(task, function(err, task){
-            if(err){
+    } else {
+        db.tasks.save(task, function (err, task) {
+            if (err) {
                 res.send(err)
             }
             res.json(task)
@@ -36,9 +36,11 @@ router.post("/task", function(req, res, next){
 })
 
 // Delete Task //
-router.delete("/task/:id",function(req, res){
-    db.tasks.remove({_id:mongojs.ObjectId(req.params.id)},function(err,task){
-        if(err){
+router.delete("/task/:id", function (req, res) {
+    db.tasks.remove({
+        _id: mongojs.ObjectId(req.params.id)
+    }, function (err, task) {
+        if (err) {
             res.send(err)
         }
         res.json(task)
@@ -46,26 +48,28 @@ router.delete("/task/:id",function(req, res){
 })
 
 //Update Task //
-router.put("/task/:id", function(req, res){
+router.put("/task/:id", function (req, res) {
     var task = req.body
     var updTask = {}
 
-    if(task.title){
+    if (task.title) {
         updTask.title = task.title
     }
 
-    if(!updTask){
-        res,status(400)
+    if (!updTask) {
+        res.status(400)
         res.json({
-            error:"Bad Data"
+            error: "Bad Data"
         })
-    }else{
-        db.tasks.update(
-            {_id:mongojs.ObjectID(req.params.id)},
-            updTask,
+    }
+    else {
+        db.tasks.replaceOne(
+            {_id: mongojs.ObjectID(req.params.id)
+            },
+            updTask, 
             {},
-            function(err, task){
-                if(err){
+            function (err, task) {
+                if (err) {
                     res.send(err)
                 }
                 res.json(task)
@@ -73,4 +77,5 @@ router.put("/task/:id", function(req, res){
         )
     }
 })
+
 module.exports = router;
