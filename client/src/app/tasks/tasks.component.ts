@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from './task';
-import { TaskService } from './tasks.service';
+import { TasksService } from './tasks.service';
 
 @Component({
     selector: 'app-task',
     templateUrl: './tasks.component.html',
-    providers: [TaskService]
+    providers: [TasksService]
 })
 export class TasksComponent implements OnInit {
     tasks: Task[];
