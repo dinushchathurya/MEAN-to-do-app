@@ -18,7 +18,6 @@ import { MessageService } from './message.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClient,
     FormsModule,
     HttpClientModule
   ],

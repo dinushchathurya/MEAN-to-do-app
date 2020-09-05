@@ -5,15 +5,15 @@
   <input type="submit" value="Submit" class="btn btn-success btn-lg btn-block">
 </form>
 <table class="table">
-  <tr *ngFor="let task of tasks0">
+  <tr *ngFor="let task of tasks">
     <td class="text-left">
       <a (click)="edit(task)">
-        <span *ngIf="task!===editTask">{{task.title}}</span>
-        <input *ngIf="task===editTask" [(ngModel)]="task.title" (blur)="update()" (keyup.enter)="update()">
+        <span>{{task.title}}</span>
+        <input *ngIf="task === editTask" [(ngModel)]="task.title" (blur)="update()" (keyup.enter)="update()">
       </a>
     </td>
     <td class="text-right">
-        <button class=btn btn-danger" title="delete task" (click)="delete(task)">Delete</button>
+        <button class="btn btn-danger" title="delete task" (click)="delete(task)">Delete</button>
     </td>
   </tr>
 </table>
